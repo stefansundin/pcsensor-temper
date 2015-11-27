@@ -1,19 +1,27 @@
+# pcsensor
 
-This is software found rather uncommented on the internet (see below for the actual source)
-and then changed to allow for multiple devices to be queried.
+```
+sudo apt-get install libusb-dev
+make
+sudo cp 60-temper.rules /lib/udev/rules.d/
+# reconnect the USB device after copying the udev rule
+sudo ln -s `pwd`/pcsensor /usr/local/bin/pcsensor
+pcsensor
+```
 
-It works with TEMPer devices that present a USB ID like this: `0c45:7401 Microdia`
+The output looks like:
 
-Mine was an [M-Ware ID7747](http://www.m-ware.de/m-ware-usb-thermometer-40--120-c-emailbenachrichtigung-id7747/a-7747/).
+```
+2015/11/27 14:47:36 Temperature 25.437500
+```
 
-# ORIGIN
+# See also
 
-Downloaded from [here](http://www.isp-sl.com/pcsensor-1.0.0.tgz)
-as seen on [Google+](https://plus.google.com/105569853186899442987/posts/N9T7xAjEtyF).
+- https://github.com/padelt/pcsensor-temper
+- https://github.com/petervojtek/usb-thermometer
+- https://github.com/stefansundin/temper-collectd
 
 # LICENSE
-
-From the source:
 
 	/*
 	 * pcsensor.c by Philipp Adelt (c) 2012 (info@philipp.adelt.net)
@@ -31,7 +39,7 @@ From the source:
 	 * modification, are permitted provided that the following conditions are met:
 	 *     * Redistributions of source code must retain the above copyright
 	 *       notice, this list of conditions and the following disclaimer.
-	 * 
+	 *
 	 * THIS SOFTWARE IS PROVIDED BY Philipp Adelt (and other contributors) ''AS IS'' AND ANY
 	 * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 	 * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -42,6 +50,5 @@ From the source:
 	 * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 	 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 	 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-	 * 
+	 *
 	 */
-
