@@ -13,11 +13,8 @@
 #define INTERFACE2 0x01
 
 const static int reqIntLen=8;
-const static int reqBulkLen=8;
 const static int endpoint_Int_in=0x82; /* endpoint 0x81 address for IN */
 const static int endpoint_Int_out=0x00; /* endpoint 1 address for OUT */
-const static int endpoint_Bulk_in=0x82; /* endpoint 0x81 address for IN */
-const static int endpoint_Bulk_out=0x00; /* endpoint 1 address for OUT */
 const static int timeout=5000; /* timeout in ms */
 
 const static char uTemp[] = { 0x01, 0x80, 0x33, 0x01, 0x00, 0x00, 0x00, 0x00 };
@@ -271,28 +268,6 @@ float interrupt_read_temperature(usb_dev_handle *dev) {
 
   /* Temperature in C is a 16-bit signed fixed-point number, big-endian */
   return (float)(signed char)answer[tempOffset] + answer[tempOffset+1] / 256.0f;
-}
-
-void bulk_transfer(usb_dev_handle *dev) {
-  int r,i;
-  char answer[reqBulkLen];
-
-  r = usb_bulk_write(dev, endpoint_Bulk_out, NULL, 0, timeout);
-  if ( r < 0 ) {
-    perror("USB bulk write"); bad("USB write failed");
-  }
-  r = usb_bulk_read(dev, endpoint_Bulk_in, answer, reqBulkLen, timeout);
-  if (r != reqBulkLen) {
-    perror("USB bulk read"); bad("USB read failed");
-  }
-
-  if (debug) {
-    for (i=0; i < reqBulkLen; i++) {
-      printf("%02x ", answer[i] & 0xFF);
-    }
-  }
-
-  usb_release_interface(dev, 0);
 }
 
 void ex_program(int sig) {
